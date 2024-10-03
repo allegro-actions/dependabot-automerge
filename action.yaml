@@ -6,20 +6,20 @@ inputs:
     required: false
 runs:
   using: composite
-  if: ${{ github.event_name == 'pull_request' && github.actor == 'dependabot[bot]' }}
   steps:
-    - name: Dependabot metadata
-      id: metadata
+    - if: ${{ github.event_name == 'pull_request' && github.actor == 'dependabot[bot]' }}
       uses: dependabot/fetch-metadata@v2
       with:
         github-token: ${{ inputs.github-token }}
-    - name: Dependabot approve
+    - if: ${{ github.event_name == 'pull_request' && github.actor == 'dependabot[bot]' }}
       run: gh pr review --approve "$PR_URL"
+      shell: bash
       env:
         PR_URL: ${{ github.event.pull_request.html_url }}
         GITHUB_TOKEN: ${{ inputs.github-token }}
     - name: Enable auto-merge for Dependabot PRs
       run: gh pr merge --squash "$PR_URL" || gh pr merge --merge "$PR_URL" || gh pr merge --rebase "$PR_URL"
+      shell: bash
       env:
         PR_URL: ${{ github.event.pull_request.html_url }}
         GITHUB_TOKEN: ${{ inputs.github-token }}
