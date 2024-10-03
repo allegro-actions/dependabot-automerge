@@ -23,7 +23,3 @@ runs:
       env:
         PR_URL: ${{ github.event.pull_request.html_url }}
         GITHUB_TOKEN: ${{ inputs.github-token }}
-    - name: Notify on failure
-      if: failure()
-      run: echo "Failed to auto-merge the pull request."
-      shell: bash
