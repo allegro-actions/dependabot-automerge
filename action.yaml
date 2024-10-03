@@ -26,3 +26,4 @@ runs:
     - name: Notify on failure
       if: failure()
       run: echo "Failed to auto-merge the pull request."
+      shell: bash
