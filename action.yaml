@@ -6,7 +6,7 @@ inputs:
     required: false
 runs:
   using: composite
-  if: github.event_name == 'pull_request'
+  if: ${{ github.event_name == 'pull_request' && github.actor == 'dependabot[bot]' }}
   steps:
     - name: Dependabot metadata
       id: metadata
