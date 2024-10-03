@@ -1,0 +1,28 @@
+name: Dependabot auto merge
+inputs:
+  github-token:
+    description: GitHub token
+    default: ${{ github.token }}
+    required: false
+runs:
+  using: composite
+  if: github.event_name == 'pull_request'
+  steps:
+    - name: Dependabot metadata
+      id: metadata
+      uses: dependabot/fetch-metadata@v2
+      with:
+        github-token: ${{ inputs.github-token }}
+    - name: Dependabot approve
+      run: gh pr review --approve "$PR_URL"
+      env:
+        PR_URL: ${{ github.event.pull_request.html_url }}
+        GITHUB_TOKEN: ${{ inputs.github-token }}
+    - name: Enable auto-merge for Dependabot PRs
+      run: gh pr merge --squash "$PR_URL" || gh pr merge --merge "$PR_URL" || gh pr merge --rebase "$PR_URL"
+      env:
+        PR_URL: ${{ github.event.pull_request.html_url }}
+        GITHUB_TOKEN: ${{ inputs.github-token }}
+    - name: Notify on failure
+      if: failure()
+      run: echo "Failed to auto-merge the pull request."
