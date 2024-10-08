@@ -4,18 +4,21 @@
 This GitHub Action automatically approves and merges pull requests created by Dependabot.
 
 ## Usage
-Create a workflow in your repository using this action. 
 
-Below is an example configuration:
+Add permissions
 
 ```yaml
-name: Dependabot auto merge
-on:
-  pull_request:
-    types: [opened]
-jobs:
-  auto-merge:
-    runs-on: [self-hosted, ubuntu-latest]
+permissions:
+  contents: write
+  pull-requests: write
+  id-token: write
+```
+
+Use the action
+
+```yaml
     steps:
       - uses: allegro-actions/dependabot-automerge@v1
 ```
+
+Happy hacking!
