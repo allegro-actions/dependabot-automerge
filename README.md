@@ -1,6 +1,4 @@
 # Dependabot Auto Merge
-
-## Description
 This GitHub Action automatically approves and merges pull requests created by Dependabot.
 
 ## Usage
