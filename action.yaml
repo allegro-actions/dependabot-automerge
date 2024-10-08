@@ -16,10 +16,10 @@ runs:
       shell: bash
       env:
         PR_URL: ${{ github.event.pull_request.html_url }}
-        GH_TOKEN: ${{ inputs.github-token }}
+        GITHUB_TOKEN: ${{ inputs.github-token }}
     - if: ${{ github.event_name == 'pull_request' && github.actor == 'dependabot[bot]' }}
       run: gh pr merge --squash --auto "$PR_URL" || gh pr merge --merge --auto "$PR_URL" || gh pr merge --rebase --auto "$PR_URL"
       shell: bash
       env:
         PR_URL: ${{ github.event.pull_request.html_url }}
-        GH_TOKEN: ${{ inputs.github-token }}
+        GITHUB_TOKEN: ${{ inputs.github-token }}
