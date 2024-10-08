@@ -17,6 +17,5 @@ jobs:
   auto-merge:
     runs-on: [self-hosted, ubuntu-latest]
     steps:
-      - if: ${{ github.event_name == 'pull_request' && github.actor == 'dependabot[bot]' }}
-        uses: allegro-actions/dependabot-automerge@v1
+      - uses: allegro-actions/dependabot-automerge@v1
 ```
