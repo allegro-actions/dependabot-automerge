@@ -1,4 +1,4 @@
-name: Dependabot auto merge
+name: Simnple Dependabot Auto Merge
 inputs:
   github-token:
     description: GitHub token
