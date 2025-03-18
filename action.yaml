@@ -18,7 +18,11 @@ runs:
         PR_URL: ${{ github.event.pull_request.html_url }}
         GITHUB_TOKEN: ${{ inputs.github-token }}
     - if: ${{ github.event_name == 'pull_request' && github.actor == 'dependabot[bot]' }}
-      run: gh pr merge --squash --auto "$PR_URL" || gh pr merge --merge --auto "$PR_URL" || gh pr merge --rebase --auto "$PR_URL"
+      run: |
+        gh pr merge --squash --auto "$PR_URL" || 
+        gh pr merge --merge --auto "$PR_URL" || 
+        gh pr merge --rebase --auto "$PR_URL" || 
+        echo "⚠️ Warning: Automatic merge failed. Please make sure to enable Auto Merge in Repository Settings: https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-auto-merge-for-pull-requests-in-your-repository#managing-auto-merge"
       shell: bash
       env:
         PR_URL: ${{ github.event.pull_request.html_url }}
